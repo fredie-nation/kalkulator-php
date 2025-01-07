@@ -47,31 +47,35 @@
 </head>
 <body>
 <?php 
-                             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                                $nilai1 = $_POST['nilai1'];
-                                $nilai2 = $_POST['nilai2'];
-                                $operator = $_POST['operator'];
-                
-                                if($operator == '+') {
-                                    $hasil = $nilai1 + $nilai2;
-                                    } elseif($operator == '-') {
-                                    $hasil = $nilai1 - $nilai2;
-                                } elseif($operator == '*') {
-                                    $hasil = $nilai1 * $nilai2;
-                                } elseif($operator == '/') {
-                                    $hasil = $nilai1 / $nilai2;
-                                } else {
-                                    echo "";
-                                }
+    $hasil = ""; 
 
-                                if ($nilai1 == "" && $nilai2 == "") {
-                                    echo "<script>alert('silahkan isi kolom 1 dan 2')</script>";
-                                } 
-                            }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_POST['hitung'])) {
+            $nilai1 = $_POST['nilai1'];
+            $nilai2 = $_POST['nilai2'];
+            $operator = $_POST['operator'];
+
+            if ($operator == '+') {
+                $hasil = $nilai1 + $nilai2;
+            } elseif ($operator == '-') {
+                $hasil = $nilai1 - $nilai2;
+            } elseif ($operator == '*') {
+                $hasil = $nilai1 * $nilai2;
+            } elseif ($operator == '/') {
+                $hasil = $nilai1 / $nilai2;
+            }
+
+            if ($nilai1 == "" || $nilai2 == "") {
+                echo "<script>alert('Silakan isi kolom 1 dan 2')</script>";
+            }
+        } elseif (isset($_POST['hapus'])) {
+            $hasil = "";
+        }
+    }
 ?>    
     <div class="container">
         <h1>KALKULATOR</h1>
-        <form action=""  method="POST">
+        <form action="" method="POST">
             <table align="center">
                 <tr>
                     <td colspan="3">
@@ -97,7 +101,7 @@
                         <input type="submit" name="hitung" value="HITUNG" class="hitung">
                     </td>
                     <td>
-                        <input type="reset" value="HAPUS" class="hapus">
+                        <input type="submit" name="hapus" value="HAPUS" class="hapus">
                     </td>
                 </tr>
                 <tr>
